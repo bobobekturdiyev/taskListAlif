@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_list_alif/data/util/colors.dart';
 import 'package:task_list_alif/data/util/icons.dart';
 import 'package:task_list_alif/data/util/style.dart';
 import 'package:task_list_alif/models/page_enum.dart';
+import 'package:task_list_alif/screens/add_task_screen/add_task_screen.dart';
 import 'package:task_list_alif/screens/data_screen/data_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context)
+                  .push(CupertinoPageRoute(builder: (_) => AddTaskScreen()));
+            },
             behavior: HitTestBehavior.opaque,
             child: Container(
               padding: EdgeInsets.all(10),

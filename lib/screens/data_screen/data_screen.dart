@@ -1,7 +1,3 @@
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_list_alif/data/util/colors.dart';
-import 'package:task_list_alif/data/util/icons.dart';
-import 'package:task_list_alif/data/util/style.dart';
 import 'package:task_list_alif/models/page_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:task_list_alif/widgets/w_task_item.dart';

@@ -5,4 +5,5 @@ class MyIcons {
   static final waiting = "assets/svg/waiting.svg";
   static final edit = "assets/svg/edit.svg";
   static final trash = "assets/svg/trash.svg";
+  static final calendar = "assets/svg/calendar.svg";
 }
