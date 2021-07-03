@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    _tabController.addListener(_handleTabSelection);
     super.initState();
   }
 
@@ -25,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void _handleTabSelection() {
+    setState(() {});
   }
 
   @override
@@ -57,16 +62,27 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ],
       ),
-      body: Column(
-        children: [],
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          Text("PAGE 1"),
+          Text("PAGE 2"),
+          Text("PAGE 3"),
+        ],
       ),
       bottomNavigationBar: TabBar(
         controller: _tabController,
+        indicatorColor: MyColors.transparent,
+        labelColor: MyColors.primaryColor,
+        unselectedLabelColor: MyColors.white,
         tabs: [
           Tab(
             text: "All",
             icon: SvgPicture.asset(
               MyIcons.list,
+              color: _tabController.index == 0
+                  ? MyColors.primaryColor
+                  : Colors.white,
               width: 24,
               height: 24,
             ),
@@ -75,6 +91,9 @@ class _HomeScreenState extends State<HomeScreen>
             text: "Done",
             icon: SvgPicture.asset(
               MyIcons.tick,
+              color: _tabController.index == 1
+                  ? MyColors.primaryColor
+                  : Colors.white,
               width: 24,
               height: 24,
             ),
@@ -83,6 +102,9 @@ class _HomeScreenState extends State<HomeScreen>
             text: "In progress",
             icon: SvgPicture.asset(
               MyIcons.waiting,
+              color: _tabController.index == 2
+                  ? MyColors.primaryColor
+                  : Colors.white,
               width: 24,
               height: 24,
             ),
