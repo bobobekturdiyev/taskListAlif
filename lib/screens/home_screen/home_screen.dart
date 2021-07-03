@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_list_alif/data/util/colors.dart';
 import 'package:task_list_alif/data/util/icons.dart';
 import 'package:task_list_alif/data/util/style.dart';
+import 'package:task_list_alif/models/page_enum.dart';
+import 'package:task_list_alif/screens/data_screen/data_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -64,10 +66,10 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          Text("PAGE 1"),
-          Text("PAGE 2"),
-          Text("PAGE 3"),
+        children: [
+          DataScreen(page: WPage.All),
+          DataScreen(page: WPage.Done),
+          DataScreen(page: WPage.InProgress),
         ],
       ),
       bottomNavigationBar: TabBar(
