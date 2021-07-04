@@ -2,7 +2,7 @@
     package="com.example.task_list_alif">
    <application
         android:label="task_list_alif"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

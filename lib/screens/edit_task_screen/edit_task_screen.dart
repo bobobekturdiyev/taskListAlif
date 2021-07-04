@@ -5,24 +5,29 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_list_alif/data/util/colors.dart';
 import 'package:task_list_alif/data/util/icons.dart';
 import 'package:task_list_alif/data/util/style.dart';
+import 'package:task_list_alif/models/task.dart';
 import 'package:task_list_alif/screens/data_screen/bloc/data_screen_bloc.dart';
 
-class AddTaskScreen extends StatefulWidget {
+class EditTaskScreen extends StatefulWidget {
   final DataScreenBloc dataScreenBloc;
-  const AddTaskScreen({Key? key, required this.dataScreenBloc})
-      : super(key: key);
+  final Task task;
+  const EditTaskScreen({
+    Key? key,
+    required this.dataScreenBloc,
+    required this.task,
+  }) : super(key: key);
 
   @override
-  _AddTaskScreenState createState() => _AddTaskScreenState();
+  _EditTaskScreenState createState() => _EditTaskScreenState();
 }
 
-class _AddTaskScreenState extends State<AddTaskScreen> {
+class _EditTaskScreenState extends State<EditTaskScreen> {
   late DateTime pickedDate;
   late TextEditingController textEditingController;
   @override
   void initState() {
-    pickedDate = DateTime.now();
-    textEditingController = TextEditingController();
+    pickedDate = DateTime.fromMillisecondsSinceEpoch(widget.task.date);
+    textEditingController = TextEditingController(text: widget.task.title);
     super.initState();
   }
 
@@ -49,7 +54,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               backgroundColor: MyColors.backgroundColor,
               elevation: 0,
               title: Text(
-                "Add New Task",
+                "Edit the task",
                 style: MyTextStyle.ubuntuBold.copyWith(fontSize: 20),
               ),
             ),
@@ -152,7 +157,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       child: state is TaskAdding
                           ? CupertinoActivityIndicator()
                           : Text(
-                              "Add task",
+                              "Update task",
                               style: MyTextStyle.ubuntuRegular,
                             ),
                     ),
@@ -166,23 +171,28 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     );
   }
 
-  bool canAdd = true;
+  bool canUpdate = true;
   String? errorText = null;
 
   addTask(String title, DateTime dateTime) {
     if (title.isEmpty || title.length == 0) {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         setState(() {
-          canAdd = false;
+          canUpdate = false;
           errorText = "Please, write the task";
         });
       });
     } else {
-      canAdd = true;
+      canUpdate = true;
     }
 
-    if (canAdd) {
-      widget.dataScreenBloc.add(AddTaskEvent(title: title, dateTime: dateTime));
+    if (canUpdate) {
+      widget.dataScreenBloc.add(EditTaskEvent(
+        title: title,
+        dateTime: dateTime,
+        id: widget.task.id!,
+        status: widget.task.status,
+      ));
     }
   }
 
